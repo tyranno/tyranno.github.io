@@ -34,8 +34,8 @@
       list: '🎮 앱·게임 목록',
       feedback: '의견은',
       font: '글꼴: 주아체 (SIL Open Font License)',
-      kakao: '💬 카톡 안에서 열렸어요. 크롬으로 열면 편해요!',
-      kakaoTester: '💬 카톡 안에서 열렸어요. 테스터가 되려면 크롬으로 열어 주세요!',
+      kakao: "💬 카톡 안이라 크롬으로 넘어가요. 안 넘어가면 단추를 누르거나 ⋮ → '다른 브라우저로 열기'",
+      kakaoTester: "💬 테스터가 되려면 크롬이 필요해요. 안 넘어가면 단추를 누르거나 ⋮ → '다른 브라우저로 열기'",
       kakaoBtn: '크롬으로 열기',
       other: 'English',
       testing: '🧪 테스터 모집 중',
@@ -80,8 +80,8 @@
       list: '🎮 Apps &amp; Games',
       feedback: 'Feedback:',
       font: 'Font: Jua (SIL Open Font License)',
-      kakao: '💬 Opened inside KakaoTalk. It works better in Chrome!',
-      kakaoTester: '💬 Opened inside KakaoTalk. Please open in Chrome to become a tester!',
+      kakao: "💬 Switching to Chrome. If nothing happens, tap the button or ⋮ → 'Open in browser'",
+      kakaoTester: "💬 You need Chrome to become a tester. If nothing happens, tap the button or ⋮ → 'Open in browser'",
       kakaoBtn: 'Open in Chrome',
       other: '한국어',
       testing: '🧪 Testers wanted',
@@ -142,12 +142,19 @@
 
   // 카톡 안 브라우저면 크롬으로 열라는 안내를 띄움 (카톡 브라우저는 구글 로그인이 안 돼 있음)
   const inKakao = /KAKAOTALK/i.test(navigator.userAgent);
-  const kakaoOut = (url) => 'kakaotalk://web/openExternal?url=' + encodeURIComponent(url);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  // 카톡 밖으로 열기: 안드로이드는 크롬을 콕 집어서(intent), 그 밖에는 카톡 기능으로 기본 브라우저
+  const kakaoOut = (url) => isAndroid
+    ? 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end'
+    : 'kakaotalk://web/openExternal?url=' + encodeURIComponent(url);
+  // 카톡 안에서 열리면 바로 크롬으로 넘김 (카톡 브라우저는 구글 로그인이 안 돼서 테스터 등록이 막힘)
+  // 넘어가지 않으면 노란 안내 띠의 '크롬으로 열기' 단추로 다시 시도
   function kakaoNotice() {
     const box = $('#kakao');
     if (!box || !inKakao) return;
     $('#kakao-open').href = kakaoOut(location.href);
     box.hidden = false;
+    location.href = kakaoOut(location.href);
   }
 
   // 같은 언어로 이어지게 링크에 ?lang= 붙이기
