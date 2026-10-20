@@ -377,3 +377,9 @@ a { color: inherit; }
 .help .why .chip { background: var(--bg); }
 .help .do .chip { background: var(--green); color: #fff; }
 #help > .hint { margin-top: 14px; font-size: 15px; }
+.tip.cache { margin-top: 18px; }
+.tip.cache b { font-weight: normal; color: var(--pink); }
+.pc { margin-top: 18px; }
+.pc h3 { margin: 0; font-size: 19px; font-weight: normal; }
+.pc ol { margin: 10px 0 14px; padding-left: 22px; font-size: 15px; line-height: 1.6; }
+.pc ol b { font-weight: normal; color: var(--pink); }

@@ -159,6 +159,13 @@ ${text(lx + lw / 2, ly + 22, label, { font: CUTE, size: 17, fill: '#fff', anchor
       s += text(18, 214, ko ? '기다리는 동안 즐길 수 있는 게임' : 'Games to play while you wait', { size: 13, bold: true, fill: '#202124' });
       return { h: 232, s };
     },
+    blankSheet: () => {
+      let s = `<rect width="${W}" height="250" fill="#6b6b6b"/>`;
+      s += `<path d="M0 90 q0 -22 22 -22 h256 q22 0 22 22 v170 h-300 z" fill="#fff"/>`;
+      s += text(20, 104, 'Google Play', { size: 17, fill: '#202124' });
+      s += `<path d="M268 92 l12 12 M280 92 l-12 12" stroke="#202124" stroke-width="2.2" stroke-linecap="round"/>`;
+      return { h: 250, s };
+    },
   };
   function problem(kind, lang, g) {
     const p = PROBLEM[kind](WORDS[lang] || WORDS.ko, lang !== 'en', g);

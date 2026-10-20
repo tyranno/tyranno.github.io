@@ -84,7 +84,14 @@
       p2do: '1~2시간 (길면 하루) 뒤 ② 단추를 다시 누르기',
       p3t: "'항목을 찾을 수 없습니다' — 플레이 스토어",
       p3why: '아직 반영 전이거나, 플레이 스토어 계정이 1·2번과 달라요.',
-      p3do: '플레이 스토어 오른쪽 위 동그라미 → 1·2번과 같은 계정으로 바꾸기. 같으면 1~2시간 뒤 ③ 단추 다시',
+      p3do: "플레이 스토어 오른쪽 위 동그라미 → 1·2번과 같은 계정으로 바꾸기. 같으면 아래 '캐시 지우기'를 하거나 1~2시간 뒤 ③ 단추 다시",
+      p4t: '하얀 빈 창 — Google Play',
+      p4why: '앱 정보를 아직 못 불러온 거예요. 대부분 아직 반영 전이에요.',
+      p4do: "X로 닫고 ③ 단추로 다시. 계속 하얗면 '캐시 지우기' 또는 아래 'PC로 설치하기'",
+      cache: "<b>캐시 지우기</b>: 폰 설정 → 애플리케이션 → Google Play 스토어 → 저장공간 → '캐시 삭제' → 플레이 스토어 다시 열기",
+      pcT: '💻 다른 방법: PC로 설치하기',
+      pcSteps: ['PC 크롬에서 <b>폰과 같은 구글 계정</b>으로 로그인', '아래 단추로 플레이 스토어 앱 페이지 열기', "'설치' 누르고 내 폰 고르기 → 폰에 저절로 설치돼요"],
+      pcBtn: '💻 스토어 페이지 열기',
       helpAsk: '🙋 그래도 안 되면 화면을 캡처해서 카톡으로 보내 주세요!',
       s3tip: '스토어에서 검색하면 안 나와요. 꼭 파란 글씨나 위 단추로 들어가세요.',
     },
@@ -143,7 +150,14 @@
       p2do: 'Tap ② again in 1–2 hours (sometimes a day)',
       p3t: "'Item not found' — Play Store",
       p3why: "It hasn't kicked in yet, or the Play Store is using a different account from steps 1–2.",
-      p3do: 'Tap the circle at the top right of the Play Store → switch to the same account. If it is the same, tap ③ again in 1–2 hours',
+      p3do: "Tap the circle at the top right of the Play Store → switch to the same account. If it is the same, try 'Clear cache' below or tap ③ again in 1–2 hours",
+      p4t: 'Blank white window — Google Play',
+      p4why: "The app info couldn't load yet. Usually it just hasn't kicked in.",
+      p4do: "Close it with X and tap ③ again. Still blank? Try 'Clear cache' or 'Install from a PC' below",
+      cache: "<b>Clear cache</b>: Settings → Apps → Google Play Store → Storage → 'Clear cache' → open the Play Store again",
+      pcT: '💻 Another way: install from a PC',
+      pcSteps: ['Sign in to Chrome on a PC with <b>the same Google account as your phone</b>', 'Open the Play Store page with the button below', "Tap 'Install' and pick your phone → it installs by itself"],
+      pcBtn: '💻 Open the store page',
       helpAsk: "🙋 Still stuck? Take a screenshot and send it to me!",
       s3tip: "Searching the store won't find it. Use the blue link or the button above.",
     },
@@ -334,13 +348,19 @@
       <section class="section" id="help">
         <h2>${T.help}</h2>
         <p class="ok">${T.helpOk}</p>
-        <div class="helps">${['groupDenied', 'notAvailable', 'notFound'].map((k, i) => `
+        <div class="helps">${['groupDenied', 'notAvailable', 'notFound', 'blankSheet'].map((k, i) => `
           <div class="box help">
             <h3>${T['p' + (i + 1) + 't']}</h3>
             <div class="pics">${d.problem(k, lang, g)}</div>
             <p class="why"><span class="chip">${T.why}</span>${T['p' + (i + 1) + 'why']}</p>
             <p class="do"><span class="chip">${T.todo}</span>${T['p' + (i + 1) + 'do']}</p>
           </div>`).join('')}
+        </div>
+        <p class="tip cache"><span class="em">🧹</span><span>${T.cache}</span></p>
+        <div class="box pc">
+          <h3>${T.pcT}</h3>
+          <ol>${T.pcSteps.map((x) => `<li>${x}</li>`).join('')}</ol>
+          ${btn('white', g.links.store, T.pcBtn)}
         </div>
         <p class="hint">${T.helpAsk}</p>
       </section>`;
