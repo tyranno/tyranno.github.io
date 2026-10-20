@@ -53,6 +53,8 @@ async function toWebp({ send, ev }, src, out, width, quality) {
 
 async function shot({ send, ev }, url, out, width, height, full) {
   await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 600 });
+  // UA=... 를 주면 그 브라우저인 척 (예: 카톡 안 브라우저 확인: UA="... KAKAOTALK 10.0.0")
+  if (process.env.UA) await send('Emulation.setUserAgentOverride', { userAgent: process.env.UA });
   await send('Page.navigate', { url });
   await sleep(1500);
   await ev('document.fonts.ready.then(() => true)');

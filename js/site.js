@@ -65,6 +65,7 @@
       s1: '구글 그룹 가입',
       s1say: '<q>그룹 가입</q> 누르기 → 작은 창이 뜨면 한 번 더 <q>그룹 가입</q>',
       s1btn: '① 구글 그룹 열기',
+      s1tip: "'권한이 없습니다'가 나오면 구글 로그인이 안 된 거예요. 오른쪽 아래 ⋮ → '다른 브라우저로 열기'로 크롬에서 여세요.",
       s2: '테스터 되기',
       s2say: '영어 화면이 나와요. <q class="en">Become a tester</q> 누르기',
       s2btn: '② 테스터 페이지 열기',
@@ -110,6 +111,7 @@
       s1: 'Join the Google Group',
       s1say: 'Tap <q>Join group</q> → when a small window pops up, tap <q>Join group</q> again',
       s1btn: '① Open the Google Group',
+      s1tip: "If it says you don't have permission, you're not signed in to Google. Open it in Chrome (⋮ → 'Open in browser').",
       s2: 'Become a tester',
       s2say: 'Tap <q class="en">Become a tester</q>',
       s2btn: '② Open the tester page',
@@ -139,10 +141,12 @@
   }
 
   // 카톡 안 브라우저면 크롬으로 열라는 안내를 띄움 (카톡 브라우저는 구글 로그인이 안 돼 있음)
+  const inKakao = /KAKAOTALK/i.test(navigator.userAgent);
+  const kakaoOut = (url) => 'kakaotalk://web/openExternal?url=' + encodeURIComponent(url);
   function kakaoNotice() {
     const box = $('#kakao');
-    if (!box || !/KAKAOTALK/i.test(navigator.userAgent)) return;
-    $('#kakao-open').href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
+    if (!box || !inKakao) return;
+    $('#kakao-open').href = kakaoOut(location.href);
     box.hidden = false;
   }
 
@@ -248,7 +252,10 @@
 
   function testerSection(g) {
     const d = window.drawGuide;
-    const btn = (cls, href, label) => `<a class="btn ${cls} wide" href="${esc(href)}" ${ext}>${label} <span class="arrow">↗</span></a>`;
+    // 카톡 안이면 단추를 바로 크롬으로 열게 함 (카톡 브라우저는 구글 로그인이 안 돼서 '권한 없음'이 뜸)
+    const btn = (cls, href, label) => inKakao
+      ? `<a class="btn ${cls} wide" href="${esc(kakaoOut(href))}">${label} <span class="arrow">↗</span></a>`
+      : `<a class="btn ${cls} wide" href="${esc(href)}" ${ext}>${label} <span class="arrow">↗</span></a>`;
     return `
       <section class="section" id="tester">
         <h2>${T.howTo}</h2>
@@ -266,6 +273,7 @@
               <p class="say">${T.s1say}</p>
               <div class="pics">${d.groupPage(g, lang)}<span class="then">↓</span>${d.groupDialog(g, lang)}</div>
               ${btn('pink', g.links.group, T.s1btn)}
+              <p class="tip"><span class="em">🔒</span><span>${T.s1tip}</span></p>
             </div>
           </li>
           <li class="step">
