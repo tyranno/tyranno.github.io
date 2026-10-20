@@ -65,6 +65,24 @@ a { color: inherit; }
 .top.small .logo { font-size: 24px; -webkit-text-stroke-width: 6px; text-shadow: 0 3px 0 var(--ink); }
 .top.small a { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
 .top .sub { margin: 10px 0 0; font-size: 18px; }
+.top { position: relative; }
+/* 언어 바꾸기 단추 (오른쪽 위) */
+.lang {
+  position: absolute; top: 10px; right: 12px;
+  min-height: 34px;
+  padding: 3px 13px;
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+.lang:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.top.small .lang { top: 50%; transform: translateY(-50%); }
+.top.small .lang:active { transform: translateY(calc(-50% + 2px)); }
 
 /* ---------- 칩 · 상태 표시 ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; padding: 0; list-style: none; }
@@ -159,7 +177,7 @@ a { color: inherit; }
 
 .section { margin-top: 40px; }
 .section > h2 {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
   margin: 0 0 14px;
   font-size: 25px;
   font-weight: normal;
@@ -171,6 +189,7 @@ a { color: inherit; }
   border-radius: 12px;
   background: var(--yellow);
   font-size: 15px;
+  white-space: nowrap;
 }
 
 .box {

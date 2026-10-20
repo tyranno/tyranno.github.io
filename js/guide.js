@@ -11,6 +11,11 @@
   const CUTE = "Jua, 'Malgun Gothic', sans-serif";
   const W = 300;
   let uid = 0;
+  // 그림 속 구글 화면 글 — 영어를 고른 사람은 구글 화면도 영어로 보일 테니 맞춰 그림
+  const WORDS = {
+    ko: { groups: '☰   Google 그룹스', join: '그룹 가입', convo: '대화', noConvo: '아직 대화가 없습니다.', display: '표시 이름', cancel: '취소', install: '설치', here: '여기!', again: '한 번 더!', installMark: '설치!' },
+    en: { groups: '☰   Google Groups', join: 'Join group', convo: 'Conversations', noConvo: 'No conversations yet.', display: 'Display name', cancel: 'Cancel', install: 'Install', here: 'Here!', again: 'Again!', installMark: 'Install!' },
+  };
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const text = (x, y, s, o = {}) =>
@@ -32,7 +37,8 @@
 
   // 누를 곳 표시: 분홍 동그라미 테두리 + 말풍선
   function mark(x, y, w, h, label, lx, ly, tail) {
-    const lw = label.length * 15 + 26;
+    // 말풍선 폭: 한글은 넓고 영어는 좁게
+    const lw = [...label].reduce((n, c) => n + (/[가-힣]/.test(c) ? 16 : c === ' ' ? 5 : 9.5), 0) + 26;
     let t = '';
     if (tail === 'left') t = `<path d="M${lx + 2} ${ly + 11} l-10 5 l10 5 z" fill="${PINK}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`;
     if (tail === 'up') t = `<path d="M${lx + 18} ${ly + 2} l6 -10 l6 10 z" fill="${PINK}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`;
@@ -51,35 +57,38 @@ ${text(lx + lw / 2, ly + 22, label, { font: CUTE, size: 17, fill: '#fff', anchor
   }
 
   // 1단계-가: 구글 그룹 화면 → '그룹 가입'
-  function groupPage(g) {
+  function groupPage(g, lang) {
+    const w = WORDS[lang] || WORDS.ko;
     const name = wrap(g.groupName, 24);
     let y = 82;
     let s = name.map((l) => { const t = text(20, y, l, { size: 19, bold: true, fill: '#202124' }); y += 24; return t; }).join('');
     const by = y + 4;
-    s += `<rect x="20" y="${by}" width="108" height="38" rx="19" fill="${G_BLUE}"/>` + text(74, by + 25, '그룹 가입', { size: 15, bold: true, fill: '#fff', anchor: 'middle' });
+    s += `<rect x="20" y="${by}" width="108" height="38" rx="19" fill="${G_BLUE}"/>` + text(74, by + 25, w.join, { size: 15, bold: true, fill: '#fff', anchor: 'middle' });
     s += `<line x1="0" y1="${by + 62}" x2="${W}" y2="${by + 62}" stroke="#e8eaed"/>`;
-    s += text(20, by + 92, '대화', { size: 14, bold: true, fill: '#202124' });
-    s += text(20, by + 116, '아직 대화가 없습니다.', { size: 13 });
-    s += mark(12, by - 8, 124, 54, '여기!', 160, by + 3, 'left');
-    return screen(by + 140, s, { bar: '☰   Google 그룹스', label: '구글 그룹 화면에서 그룹 가입 누르기' });
+    s += text(20, by + 92, w.convo, { size: 14, bold: true, fill: '#202124' });
+    s += text(20, by + 116, w.noConvo, { size: 13 });
+    s += mark(12, by - 8, 124, 54, w.here, 160, by + 3, 'left');
+    return screen(by + 140, s, { bar: w.groups, label: '구글 그룹 화면에서 그룹 가입 누르기' });
   }
 
   // 1단계-나: 작은 창 → 한 번 더 '그룹 가입'
-  function groupDialog(g) {
+  function groupDialog(g, lang) {
+    const w = WORDS[lang] || WORDS.ko;
     let s = `<rect width="${W}" height="280" fill="#8d8a9e"/>`;
     s += `<rect x="18" y="26" width="264" height="200" rx="14" fill="#fff"/>`;
-    s += text(36, 60, '그룹 가입', { size: 18, bold: true, fill: '#202124' });
+    s += text(36, 60, w.join, { size: 18, bold: true, fill: '#202124' });
     s += text(36, 84, wrap(g.groupName, 30)[0], { size: 13 });
-    s += text(36, 114, '표시 이름', { size: 12 });
+    s += text(36, 114, w.display, { size: 12 });
     s += `<rect x="36" y="122" width="228" height="32" rx="6" fill="none" stroke="#dadce0" stroke-width="1.5"/>`;
-    s += text(150, 196, '취소', { size: 14, bold: true, fill: G_BLUE, anchor: 'middle' });
-    s += `<rect x="182" y="174" width="88" height="36" rx="18" fill="${G_BLUE}"/>` + text(226, 197, '그룹 가입', { size: 14, bold: true, fill: '#fff', anchor: 'middle' });
-    s += mark(175, 167, 102, 50, '한 번 더!', 166, 236, 'up');
+    s += text(150, 196, w.cancel, { size: 14, bold: true, fill: G_BLUE, anchor: 'middle' });
+    s += `<rect x="182" y="174" width="88" height="36" rx="18" fill="${G_BLUE}"/>` + text(226, 197, w.join, { size: 14, bold: true, fill: '#fff', anchor: 'middle' });
+    s += mark(175, 167, 102, 50, w.again, 166, 236, 'up');
     return screen(280, s, { label: '작은 창에서 한 번 더 그룹 가입 누르기' });
   }
 
   // 2단계: 테스터 페이지 (영어) → 'Become a tester'
-  function testerPage(g) {
+  function testerPage(g, lang) {
+    const w = WORDS[lang] || WORDS.ko;
     const name = wrap(g.playName, 30);
     let y = 80;
     let s = name.map((l) => { const t = text(20, y, l, { size: 16, bold: true, fill: '#202124' }); y += 21; return t; }).join('');
@@ -87,31 +96,33 @@ ${text(lx + lw / 2, ly + 22, label, { font: CUTE, size: 17, fill: '#fff', anchor
     s += text(20, y + 30, 'access to new features.', { size: 13 });
     const by = y + 50;
     s += `<rect x="20" y="${by}" width="160" height="40" rx="8" fill="${G_BLUE}"/>` + text(100, by + 26, 'Become a tester', { size: 15, bold: true, fill: '#fff', anchor: 'middle' });
-    s += mark(12, by - 8, 176, 56, '여기!', 206, by + 4, 'left');
+    s += mark(12, by - 8, 176, 56, w.here, 206, by + 4, 'left');
     return screen(by + 76, s, { bar: 'Google Play', label: '테스터 페이지에서 Become a tester 누르기' });
   }
 
   // 3단계-가: "You are a tester." → 글 가운데 파란 'download it on Google Play'
-  function testerDone(g) {
+  function testerDone(g, lang) {
+    const w = WORDS[lang] || WORDS.ko;
     let s = text(20, 80, 'You are a tester.', { size: 18, bold: true, fill: '#202124' });
     s += text(20, 110, "You'll receive an update to the app", { size: 13 });
     s += text(20, 128, 'if you already have it installed.', { size: 13 });
     s += text(20, 156, "If you don't have the app installed,", { size: 13 });
     s += text(20, 178, 'download it on Google Play.', { size: 15, bold: true, fill: G_BLUE, underline: true });
     s += text(20, 206, 'Note: It can take a while…', { size: 13 });
-    s += mark(10, 161, 222, 27, '여기!', 196, 214, 'up');
+    s += mark(10, 161, 222, 27, w.here, 196, 214, 'up');
     return screen(258, s, { bar: 'Google Play', label: '글 가운데 파란 download it on Google Play 누르기' });
   }
 
   // 3단계-나: 플레이 스토어 → '설치'
-  function storePage(g) {
+  function storePage(g, lang) {
+    const w = WORDS[lang] || WORDS.ko;
     const id = 'i' + (++uid);
     let s = `<defs><clipPath id="${id}"><rect x="20" y="62" width="64" height="64" rx="16"/></clipPath></defs>`;
     s += `<image href="games/${g.id}/icon.webp" x="20" y="62" width="64" height="64" clip-path="url(#${id})"/>`;
     s += `<rect x="20" y="62" width="64" height="64" rx="16" fill="none" stroke="#dadce0"/>`;
     s += text(98, 100, g.name, { size: 19, bold: true, fill: '#202124' });
-    s += `<rect x="20" y="146" width="260" height="40" rx="20" fill="${G_GREEN}"/>` + text(150, 172, '설치', { size: 16, bold: true, fill: '#fff', anchor: 'middle' });
-    s += mark(12, 138, 276, 56, '설치!', 116, 206, 'up');
+    s += `<rect x="20" y="146" width="260" height="40" rx="20" fill="${G_GREEN}"/>` + text(150, 172, w.install, { size: 16, bold: true, fill: '#fff', anchor: 'middle' });
+    s += mark(12, 138, 276, 56, w.installMark, 116, 206, 'up');
     return screen(250, s, { bar: 'Google Play', label: '플레이 스토어에서 설치 누르기' });
   }
 

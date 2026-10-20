@@ -6,6 +6,8 @@
 //   shots에 적은 화면 그림들 (가로 1280 정도)
 //   그림 줄이기: node tools/chrome.js webp <원본.png> <결과.webp> <가로 크기>
 //
+// 글은 { ko: '한국어', en: 'English' } 로 쓰면 언어 선택에 따라 바뀜 (en을 안 쓰면 한국어가 나옴)
+//
 // 새 앱을 비공개 테스트로 올릴 때: 플레이 콘솔에서 구글 그룹을 새로 만들어 테스터 목록에 넣고,
 //   아래 ★ 칸(package, group, groupName, playName)을 그 앱 것으로 바꾸기
 //
@@ -15,32 +17,36 @@
 window.GAMES = [
   {
     id: 'toktok-flip',
-    name: '톡톡 뒤집기',
-    tagline: '눈 달린 말랑말랑 돌을 뒤집는 리버시 퍼즐',
-    chips: ['300단계 이야기', '아이템 대전', '매일 새 퍼즐'],
+    name: { ko: '톡톡 뒤집기', en: 'TokTok Flip' },
+    tagline: { ko: '눈 달린 말랑말랑 돌을 뒤집는 리버시 퍼즐', en: 'A cute Reversi puzzle with squishy, big-eyed stones' },
+    chips: [
+      { ko: '300단계 이야기', en: '300 story stages' },
+      { ko: '아이템 대전', en: 'Item Battle' },
+      { ko: '매일 새 퍼즐', en: 'Daily puzzles' },
+    ],
     status: 'testing',
     color: '#22C07A',
     // 게임 페이지 맨 위 소개 (짧게 두세 줄)
-    intro: [
-      '상대 돌을 내 돌 사이에 끼우면 톡톡 뒤집혀요.',
-      '규칙은 1분이면 배우고, 깊이는 끝이 없어요!',
-    ],
+    intro: {
+      ko: ['상대 돌을 내 돌 사이에 끼우면 톡톡 뒤집혀요.', '규칙은 1분이면 배우고, 깊이는 끝이 없어요!'],
+      en: ["Trap your rival's stones between yours and they flip — tok tok!", 'Learn it in a minute, master it for a lifetime.'],
+    },
     features: [
-      { icon: '🗺️', title: '300단계 이야기', text: '27개 세계, 세계마다 새로운 판 장치' },
-      { icon: '🎁', title: '아이템 대전', text: '폭탄 돌·거울 돌… 컴퓨터도 아이템을 써요' },
-      { icon: '📅', title: '매일 새 퍼즐', text: '쉬움·보통·어려움, 달력에 도장 모으기' },
-      { icon: '⚔️', title: '등급전', text: '18급부터 9단까지 실력 올리기' },
-      { icon: '🎨', title: '꾸미기', text: '고양이 돌, 행성 돌, 우주 판…' },
-      { icon: '📴', title: '인터넷 없이 OK', text: '결제 없음 · 한 폰으로 2인용도 돼요' },
+      { icon: '🗺️', title: { ko: '300단계 이야기', en: '300-stage story' }, text: { ko: '27개 세계, 세계마다 새로운 판 장치', en: '27 worlds, each with new board tricks' } },
+      { icon: '🎁', title: { ko: '아이템 대전', en: 'Item Battle' }, text: { ko: '폭탄 돌·거울 돌… 컴퓨터도 아이템을 써요', en: 'Bomb & mirror stones… the computer uses items too' } },
+      { icon: '📅', title: { ko: '매일 새 퍼즐', en: 'Daily puzzles' }, text: { ko: '쉬움·보통·어려움, 달력에 도장 모으기', en: 'Easy · Normal · Hard, collect calendar stamps' } },
+      { icon: '⚔️', title: { ko: '등급전', en: 'Ranked' }, text: { ko: '18급부터 9단까지 실력 올리기', en: 'Climb from 18 Kyu to 9 Dan' } },
+      { icon: '🎨', title: { ko: '꾸미기', en: 'Customize' }, text: { ko: '고양이 돌, 행성 돌, 우주 판…', en: 'Cat stones, planet stones, space boards…' } },
+      { icon: '📴', title: { ko: '인터넷 없이 OK', en: 'Plays offline' }, text: { ko: '결제 없음 · 한 폰으로 2인용도 돼요', en: 'No payments · 2 players on one phone' } },
     ],
     shots: [
-      { file: 'shot-1-menu.webp', caption: '첫 화면' },
-      { file: 'shot-3-game.webp', caption: '대전' },
-      { file: 'shot-2-map.webp', caption: '300단계 지도' },
-      { file: 'shot-4-item.webp', caption: '아이템 대전' },
-      { file: 'shot-5-today.webp', caption: '오늘의 퍼즐' },
-      { file: 'shot-6-shop.webp', caption: '상점' },
-      { file: 'shot-7-friends.webp', caption: '캐릭터 모으기' },
+      { file: 'shot-1-menu.webp', caption: { ko: '첫 화면', en: 'Home' } },
+      { file: 'shot-3-game.webp', caption: { ko: '대전', en: 'Battle' } },
+      { file: 'shot-2-map.webp', caption: { ko: '300단계 지도', en: '300-stage map' } },
+      { file: 'shot-4-item.webp', caption: { ko: '아이템 대전', en: 'Item Battle' } },
+      { file: 'shot-5-today.webp', caption: { ko: '오늘의 퍼즐', en: 'Daily puzzle' } },
+      { file: 'shot-6-shop.webp', caption: { ko: '상점', en: 'Shop' } },
+      { file: 'shot-7-friends.webp', caption: { ko: '캐릭터 모으기', en: 'Collect characters' } },
     ],
     // ★ 앱마다 다른 것 — 새로 추가할 때 꼭 바꾸기
     package: 'com.tyranno.othello',       // 플레이 콘솔의 패키지 이름 → 테스터 주소·스토어 주소가 저절로 만들어짐
@@ -63,6 +69,6 @@ window.GAMES.forEach((g) => {
 
 // 의견 받을 곳 (모든 게임 같이 씀)
 window.SITE = {
-  name: '만들어 봤어',
+  name: { ko: '만들어 봤어', en: 'I Made This' },
   email: 'tyranno1223@gmail.com',
 };

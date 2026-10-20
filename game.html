@@ -17,13 +17,14 @@
 <body>
   <div class="kakao" id="kakao" hidden>
     <div class="wrap">
-      <span id="kakao-text">💬 카톡 안에서 열렸어요. 크롬으로 열면 편해요!</span>
-      <a class="btn white" id="kakao-open" href="#">크롬으로 열기</a>
+      <span id="kakao-text" data-t="kakao">💬 카톡 안에서 열렸어요. 크롬으로 열면 편해요!</span>
+      <a class="btn white" id="kakao-open" href="#" data-t="kakaoBtn">크롬으로 열기</a>
     </div>
   </div>
 
   <header class="top small">
-    <a href="./"><span aria-hidden="true">←</span><span class="logo">만들어 봤어</span></a>
+    <a href="./" id="home-link"><span aria-hidden="true">←</span><span class="logo" data-t="name">만들어 봤어</span></a>
+    <button class="lang" id="lang-btn" type="button">English</button>
   </header>
 
   <main class="wrap" id="game"></main>
@@ -35,8 +36,8 @@
 
   <footer class="foot">
     <p><span id="foot-extra"></span></p>
-    <p>만들어 봤어 · 의견은 <a href="mailto:tyranno1223@gmail.com">tyranno1223@gmail.com</a></p>
-    <p>글꼴: 주아체 (SIL Open Font License)</p>
+    <p><span data-t="name">만들어 봤어</span> · <span data-t="feedback">의견은</span> <a href="mailto:tyranno1223@gmail.com">tyranno1223@gmail.com</a></p>
+    <p data-t="font">글꼴: 주아체 (SIL Open Font License)</p>
   </footer>
 
   <script src="js/games.js"></script>
