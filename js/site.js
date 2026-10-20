@@ -32,8 +32,10 @@
 
   // ---------- 게임 페이지 ----------
   function renderGame() {
-    const id = new URLSearchParams(location.search).get('id');
-    const g = GAMES.find((x) => x.id === id);
+    const q = new URLSearchParams(location.search);
+    let g = GAMES.find((x) => x.id === q.get('id'));
+    // 미리 보기: 주소 뒤에 &preview=released 를 붙이면 출시 뒤 모습을 볼 수 있음
+    if (g && STATUS[q.get('preview')]) g = { ...g, status: q.get('preview') };
     const main = $('#game');
     if (!g) {
       main.innerHTML = `<div class="box" style="margin-top:30px;text-align:center">
@@ -43,6 +45,7 @@
     }
     document.title = `${g.name} — ${SITE.name}`;
     const testing = g.status === 'testing';
+    if (testing && $('#kakao-text')) $('#kakao-text').textContent = '💬 카톡 안에서 열렸어요. 테스터가 되려면 크롬으로 열어 주세요!';
 
     const cta = testing
       ? `<a class="btn pink" href="#tester">🧪 테스터 되기 <span class="arrow">3단계 ↓</span></a>`
@@ -84,6 +87,14 @@
       </section>
 
       ${testing ? testerSection(g) : ''}
+
+      <section class="section">
+        <h2>🙏 꼭 지켜 주세요</h2>
+        <div class="box rules">
+          ${testing ? '<div class="rule"><span class="em">🗓️</span><div><b>14일 동안 지우지 말기</b><span>테스터가 14일 동안 깔아 둬야 정식 출시를 할 수 있어요</span></div></div>' : ''}
+          <div class="rule red"><span class="em">🚫</span><div><b>광고는 누르지 말기</b><span>아는 사람이 누르면 부정 클릭이 돼서 광고 계정이 막혀요</span></div></div>
+        </div>
+      </section>
 
       <section class="section" id="talk">
         <h2>💌 의견 보내기</h2>
@@ -141,14 +152,6 @@
             </div>
           </li>
         </ol>
-      </section>
-
-      <section class="section">
-        <h2>🙏 꼭 지켜 주세요</h2>
-        <div class="box rules">
-          <div class="rule"><span class="em">🗓️</span><div><b>14일 동안 지우지 말기</b><span>테스터가 14일 동안 깔아 둬야 정식 출시를 할 수 있어요</span></div></div>
-          <div class="rule red"><span class="em">🚫</span><div><b>광고는 누르지 말기</b><span>아는 사람이 누르면 부정 클릭이 돼서 광고 계정이 막혀요</span></div></div>
-        </div>
       </section>`;
   }
 

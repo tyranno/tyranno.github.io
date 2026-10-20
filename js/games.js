@@ -10,7 +10,8 @@
 //   아래 ★ 칸(package, group, groupName, playName)을 그 앱 것으로 바꾸기
 //
 // status: 'testing' = 🧪 테스터 모집 중 (테스터 되는 법 3단계가 나옴)
-//         'released' = ✅ 출시 (테스터 안내 대신 플레이 스토어 바로가기가 나옴)
+//         'released' = ✅ 출시 (테스터 안내·14일 안내가 빠지고 플레이 스토어 바로가기가 나옴)
+//         바꾸기 전에 미리 보기: game.html?id=<id>&preview=released
 window.GAMES = [
   {
     id: 'toktok-flip',
