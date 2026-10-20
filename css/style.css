@@ -358,3 +358,22 @@ a { color: inherit; }
   .talk { grid-template-columns: max-content max-content; align-items: center; }
   .talk p { grid-column: 1 / -1; }
 }
+
+/* 이런 화면이 나오면 */
+.ok {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  background: #e6f9ef;
+  border: 2.5px solid var(--ink);
+  border-radius: 14px;
+  font-size: 16px;
+}
+.ok b { font-weight: normal; color: #0b8a54; }
+.helps { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.help h3 { margin: 0; font-size: 19px; font-weight: normal; line-height: 1.3; }
+.help .pics { margin: 12px 0; }
+.help p { margin: 8px 0 0; font-size: 15px; line-height: 1.45; }
+.help .chip { margin-right: 6px; font-size: 13px; padding: 1px 9px; }
+.help .why .chip { background: var(--bg); }
+.help .do .chip { background: var(--green); color: #fff; }
+#help > .hint { margin-top: 14px; font-size: 15px; }

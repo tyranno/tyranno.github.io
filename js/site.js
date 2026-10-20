@@ -66,16 +66,27 @@
       s1: '구글 그룹 가입',
       s1say: '<q>그룹 가입</q> 누르기 → 작은 창이 뜨면 한 번 더 <q>그룹 가입</q>',
       s1btn: '① 구글 그룹 열기',
-      s1tip: "'권한이 없습니다'가 나오면 구글 로그인이 안 된 거예요. 오른쪽 아래 ⋮ → '다른 브라우저로 열기'로 크롬에서 여세요.",
       s2: '테스터 되기',
       s2say: '영어 화면이 나와요. <q class="en">Become a tester</q> 누르기',
       s2btn: '② 테스터 페이지 열기',
-      s2tip: "'사용할 수 없음'이 뜨면 1번이 아직 반영 안 된 거예요. 1~2시간 뒤 다시 열어 보세요.",
       s3: '설치하기',
       s3say: '이어서 나오는 글 <b>중간</b>의 파란 <q class="en">download it on Google Play</q> 누르고 → 설치',
       s3btn: '③ 설치 페이지 열기',
+      help: '🆘 이런 화면이 나오면',
+      helpOk: "✅ <b>'You are a tester.'</b>가 보이면 1·2단계는 끝! 남은 건 3단계뿐이에요.",
+      why: '왜?',
+      todo: '이렇게',
+      p1t: "'권한이 없습니다' — 구글 그룹",
+      p1why: '구글 로그인이 안 된 거예요. 오른쪽 위에 로그인 단추가 보여요.',
+      p1do: "⋮ → '다른 브라우저로 열기'로 크롬에서 열기. 크롬도 로그인 전이면 로그인하기",
+      p2t: "'App not available' — 테스터 페이지",
+      p2why: '1번 그룹 가입이 아직 반영 전이에요.',
+      p2do: '1~2시간 (길면 하루) 뒤 ② 단추를 다시 누르기',
+      p3t: "'항목을 찾을 수 없습니다' — 플레이 스토어",
+      p3why: '아직 반영 전이거나, 플레이 스토어 계정이 1·2번과 달라요.',
+      p3do: '플레이 스토어 오른쪽 위 동그라미 → 1·2번과 같은 계정으로 바꾸기. 같으면 1~2시간 뒤 ③ 단추 다시',
+      helpAsk: '🙋 그래도 안 되면 화면을 캡처해서 카톡으로 보내 주세요!',
       s3tip: '스토어에서 검색하면 안 나와요. 꼭 파란 글씨나 위 단추로 들어가세요.',
-      s3tip2: "'항목을 찾을 수 없습니다'가 나오면: ① 플레이 스토어 오른쪽 위 동그라미(계정)가 1·2번과 같은 계정인지 확인 ② 같으면 아직 반영 전이에요. 1~2시간 뒤 ③ 단추를 다시 눌러 보세요.",
     },
     en: {
       sub: 'Apps &amp; games I made<br>Try them and let me know!',
@@ -114,16 +125,27 @@
       s1: 'Join the Google Group',
       s1say: 'Tap <q>Join group</q> → when a small window pops up, tap <q>Join group</q> again',
       s1btn: '① Open the Google Group',
-      s1tip: "If it says you don't have permission, you're not signed in to Google. Open it in Chrome (⋮ → 'Open in browser').",
       s2: 'Become a tester',
       s2say: 'Tap <q class="en">Become a tester</q>',
       s2btn: '② Open the tester page',
-      s2tip: "If it says it's not available, step 1 hasn't kicked in yet. Try again in 1–2 hours.",
       s3: 'Install',
       s3say: 'In the text that follows, tap the blue <q class="en">download it on Google Play</q> in the <b>middle</b> → Install',
       s3btn: '③ Open the install page',
+      help: '🆘 If you see this screen',
+      helpOk: "✅ If you see <b>'You are a tester.'</b>, steps 1 and 2 are done. Only step 3 left!",
+      why: 'Why?',
+      todo: 'Do this',
+      p1t: "'No permission' — Google Group",
+      p1why: "You're not signed in to Google. There's a Sign in button at the top right.",
+      p1do: "⋮ → 'Open in browser' to open it in Chrome. Sign in if Chrome isn't signed in either",
+      p2t: "'App not available' — tester page",
+      p2why: "Joining the group in step 1 hasn't kicked in yet.",
+      p2do: 'Tap ② again in 1–2 hours (sometimes a day)',
+      p3t: "'Item not found' — Play Store",
+      p3why: "It hasn't kicked in yet, or the Play Store is using a different account from steps 1–2.",
+      p3do: 'Tap the circle at the top right of the Play Store → switch to the same account. If it is the same, tap ③ again in 1–2 hours',
+      helpAsk: "🙋 Still stuck? Take a screenshot and send it to me!",
       s3tip: "Searching the store won't find it. Use the blue link or the button above.",
-      s3tip2: "If it says 'Item not found': ① check the account circle at the top right of the Play Store is the same account as steps 1–2 ② if it is, it just hasn't kicked in yet. Tap ③ again in 1–2 hours.",
     },
   }[lang];
 
@@ -285,7 +307,6 @@
               <p class="say">${T.s1say}</p>
               <div class="pics">${d.groupPage(g, lang)}<span class="then">↓</span>${d.groupDialog(g, lang)}</div>
               ${btn('pink', g.links.group, T.s1btn)}
-              <p class="tip"><span class="em">🔒</span><span>${T.s1tip}</span></p>
             </div>
           </li>
           <li class="step">
@@ -295,7 +316,6 @@
               <p class="say">${T.s2say}</p>
               <div class="pics">${d.testerPage(g, lang)}</div>
               ${btn('blue', g.links.tester, T.s2btn)}
-              <p class="tip"><span class="em">⏳</span><span>${T.s2tip}</span></p>
             </div>
           </li>
           <li class="step">
@@ -306,10 +326,23 @@
               <div class="pics">${d.testerDone(g, lang)}<span class="then">↓</span>${d.storePage(g, lang)}</div>
               ${btn('green', g.links.store, T.s3btn)}
               <p class="tip"><span class="em">🔍</span><span>${T.s3tip}</span></p>
-              <p class="tip"><span class="em">🛰️</span><span>${T.s3tip2}</span></p>
             </div>
           </li>
         </ol>
+      </section>
+
+      <section class="section" id="help">
+        <h2>${T.help}</h2>
+        <p class="ok">${T.helpOk}</p>
+        <div class="helps">${['groupDenied', 'notAvailable', 'notFound'].map((k, i) => `
+          <div class="box help">
+            <h3>${T['p' + (i + 1) + 't']}</h3>
+            <div class="pics">${d.problem(k, lang, g)}</div>
+            <p class="why"><span class="chip">${T.why}</span>${T['p' + (i + 1) + 'why']}</p>
+            <p class="do"><span class="chip">${T.todo}</span>${T['p' + (i + 1) + 'do']}</p>
+          </div>`).join('')}
+        </div>
+        <p class="hint">${T.helpAsk}</p>
       </section>`;
   }
 

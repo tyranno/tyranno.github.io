@@ -43,7 +43,9 @@
     if (tail === 'left') t = `<path d="M${lx + 2} ${ly + 11} l-10 5 l10 5 z" fill="${PINK}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`;
     if (tail === 'up') t = `<path d="M${lx + 18} ${ly + 2} l6 -10 l6 10 z" fill="${PINK}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`;
     if (tail === 'right') t = `<path d="M${lx + lw - 2} ${ly + 11} l10 5 l-10 5 z" fill="${PINK}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`;
-    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(h / 2, 16)}" fill="none" stroke="${PINK}" stroke-width="4"/>
+    const ring = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(h / 2, 16)}" fill="none" stroke="${PINK}" stroke-width="4"/>`;
+    if (!label) return ring; // 말풍선 없이 테두리만
+    return `${ring}
 ${t}<rect x="${lx}" y="${ly}" width="${lw}" height="32" rx="16" fill="${PINK}" stroke="${INK}" stroke-width="2.5"/>
 ${text(lx + lw / 2, ly + 22, label, { font: CUTE, size: 17, fill: '#fff', anchor: 'middle' })}`;
   }
@@ -126,5 +128,42 @@ ${text(lx + lw / 2, ly + 22, label, { font: CUTE, size: 17, fill: '#fff', anchor
     return screen(250, s, { bar: 'Google Play', label: '플레이 스토어에서 설치 누르기' });
   }
 
-  window.drawGuide = { groupPage, groupDialog, testerPage, testerDone, storePage };
+  // '이런 화면이 나오면' 칸의 작은 그림 (실제 오류 화면을 간단히 다시 그림)
+  const PROBLEM = {
+    // 구글 그룹: 로그인 안 된 상태 → '권한이 없습니다' (오른쪽 위 '로그인' 단추가 단서)
+    groupDenied: (w, ko, gm) => {
+      // 실제 화면: 그룹 이름 + '소유자 및 관리자에게 문의' + 금지 표시 + 안내 글, 오른쪽 위 파란 '로그인'
+      let s = `<rect x="214" y="8" width="74" height="30" rx="15" fill="${G_BLUE}"/>` + text(251, 28, ko ? '로그인' : 'Sign in', { size: 13, bold: true, fill: '#fff', anchor: 'middle' });
+      s += text(18, 74, gm.groupName, { size: 18, fill: '#202124' });
+      s += `<rect x="18" y="84" width="150" height="26" rx="4" fill="#fff" stroke="#dadce0"/>` + text(93, 101, ko ? '소유자 및 관리자에게 문의' : 'Contact owners and managers', { size: 10, bold: true, fill: G_BLUE, anchor: 'middle' });
+      s += `<circle cx="150" cy="148" r="18" fill="none" stroke="#bdc1c6" stroke-width="4"/><line x1="138" y1="160" x2="162" y2="136" stroke="#bdc1c6" stroke-width="4" stroke-linecap="round"/>`;
+      (ko ? ['이 콘텐츠에 액세스할 권한이 없습니다'] : ["You don't have permission", 'to access this content']).forEach((l, i) => { s += text(150, 194 + i * 18, l, { size: 14, bold: true, fill: '#202124', anchor: 'middle' }); });
+      s += text(150, ko ? 216 : 234, ko ? '액세스하려면 그룹 소유자 및 관리자에게 문의…' : 'Contact the group owners and managers…', { size: 11, anchor: 'middle' });
+      s += mark(209, 3, 84, 40, '', 0, 0);
+      return { h: ko ? 236 : 252, s, bar: ko ? '☰  그룹' : '☰  Groups' };
+    },
+    // 테스터 페이지: 그룹 가입이 아직 반영 전
+    notAvailable: () => {
+      let s = text(20, 82, 'App not available', { size: 18, bold: true, fill: '#202124' });
+      s += text(20, 110, 'This app is not available for', { size: 13 });
+      s += text(20, 128, 'your account.', { size: 13 });
+      return { h: 160, s, bar: 'Google Play' };
+    },
+    // 플레이 스토어 앱: 아직 반영 전이거나 계정이 다름
+    notFound: (w, ko) => {
+      // 실제 화면: 위성 그림 + '항목을 찾을 수 없습니다.' + 파란 '다시 시도' + 아래 '기다리는 동안 즐길 수 있는 게임'
+      let s = text(150, 78, '🛰️', { size: 48, anchor: 'middle', fill: '#202124' });
+      s += text(150, 118, ko ? '항목을 찾을 수 없습니다.' : 'Item not found.', { size: 15, fill: '#202124', anchor: 'middle' });
+      s += `<rect x="100" y="132" width="100" height="34" rx="17" fill="${G_BLUE}"/>` + text(150, 154, ko ? '다시 시도' : 'Try again', { size: 13, bold: true, fill: '#fff', anchor: 'middle' });
+      s += `<line x1="0" y1="188" x2="${W}" y2="188" stroke="#e8eaed"/>`;
+      s += text(18, 214, ko ? '기다리는 동안 즐길 수 있는 게임' : 'Games to play while you wait', { size: 13, bold: true, fill: '#202124' });
+      return { h: 232, s };
+    },
+  };
+  function problem(kind, lang, g) {
+    const p = PROBLEM[kind](WORDS[lang] || WORDS.ko, lang !== 'en', g);
+    return screen(p.h, p.s, { bar: p.bar, label: kind });
+  }
+
+  window.drawGuide = { groupPage, groupDialog, testerPage, testerDone, storePage, problem };
 })();
