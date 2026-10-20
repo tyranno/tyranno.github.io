@@ -74,6 +74,7 @@
       s3say: '이어서 나오는 글 <b>중간</b>의 파란 <q class="en">download it on Google Play</q> 누르고 → 설치',
       s3btn: '③ 설치 페이지 열기',
       s3tip: '스토어에서 검색하면 안 나와요. 꼭 파란 글씨나 위 단추로 들어가세요.',
+      s3tip2: "'항목을 찾을 수 없습니다'가 나오면: ① 플레이 스토어 오른쪽 위 동그라미(계정)가 1·2번과 같은 계정인지 확인 ② 같으면 아직 반영 전이에요. 30분쯤 뒤 ③ 단추를 다시 눌러 보세요.",
     },
     en: {
       sub: 'Apps &amp; games I made<br>Try them and let me know!',
@@ -120,6 +121,7 @@
       s3say: 'In the text that follows, tap the blue <q class="en">download it on Google Play</q> in the <b>middle</b> → Install',
       s3btn: '③ Open the install page',
       s3tip: "Searching the store won't find it. Use the blue link or the button above.",
+      s3tip2: "If it says 'Item not found': ① check the account circle at the top right of the Play Store is the same account as steps 1–2 ② if it is, it just hasn't kicked in yet. Tap ③ again in about 30 minutes.",
     },
   }[lang];
 
@@ -301,6 +303,7 @@
               <div class="pics">${d.testerDone(g, lang)}<span class="then">↓</span>${d.storePage(g, lang)}</div>
               ${btn('green', g.links.store, T.s3btn)}
               <p class="tip"><span class="em">🔍</span><span>${T.s3tip}</span></p>
+              <p class="tip"><span class="em">🛰️</span><span>${T.s3tip2}</span></p>
             </div>
           </li>
         </ol>
