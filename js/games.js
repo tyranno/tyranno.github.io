@@ -55,6 +55,43 @@ window.GAMES = [
     playName: 'TokTok Flip - Reversi Puzzle', // 테스터 페이지에 나오는 영어 앱 이름 (안내 그림에 들어감)
     privacy: 'https://github.com/tyranno/othello/blob/master/docs/privacy.md',
   },
+  {
+    id: 'semo-path',
+    name: { ko: '세모 길 잇기', en: 'Semo Path' },
+    tagline: { ko: '동글이를 같은 색 집까지 데려다주는 길 잇기 퍼즐', en: 'Guide each cute buddy home along a triangle grid' },
+    chips: [
+      { ko: '200판', en: '200 boards' },
+      { ko: '10개 지역', en: '10 regions' },
+      { ko: '매일 새 퍼즐', en: 'Daily puzzles' },
+    ],
+    status: 'testing',
+    color: '#2FC46B',
+    intro: {
+      ko: ['동글이를 끌어서 같은 색 집까지 길을 이어요.', '빈 곳 없이 다 채우면 꽃이 활짝! 별 세 개를 모아 봐요.'],
+      en: ['Drag each buddy to the house of the same color.', 'Fill every spot and flowers bloom — collect all three stars!'],
+    },
+    features: [
+      { icon: '🗺️', title: { ko: '10개 지역 · 200판', en: '10 regions · 200 boards' }, text: { ko: '꽃동산부터 별빛 언덕까지', en: 'From Flower Hill to Starlight Hill' } },
+      { icon: '🌉', title: { ko: '새로운 장치', en: 'New tricks' }, text: { ko: '바위 · 다리 · 굴 · 깃발', en: 'Rocks · Bridges · Tunnels · Flags' } },
+      { icon: '🌟', title: { ko: '오늘의 퍼즐', en: 'Daily puzzle' }, text: { ko: '매일 모두 같은 판, 연속 도전', en: 'Same board for everyone, keep your streak' } },
+      { icon: '⏱️', title: { ko: '시간 도전', en: 'Time challenge' }, text: { ko: '60초 동안 몇 판이나 풀까?', en: 'How many boards in 60 seconds?' } },
+      { icon: '💰', title: { ko: '숨은 보물', en: 'Hidden treasure' }, text: { ko: '길 밑 보물을 찾아 동전 모으기', en: 'Find treasure under your paths' } },
+      { icon: '📴', title: { ko: '인터넷 없이 OK', en: 'Plays offline' }, text: { ko: '결제 없음 · 잔잔한 음악', en: 'No payments · calm music' } },
+    ],
+    shots: [
+      { file: 'shot-2.webp', caption: { ko: '꽃동산', en: 'Flower Hill' } },
+      { file: 'shot-3.webp', caption: { ko: '굴', en: 'Tunnels' } },
+      { file: 'shot-4.webp', caption: { ko: '깃발 마을', en: 'Flag Village' } },
+      { file: 'shot-5.webp', caption: { ko: '다 채우면 꽃이 활짝', en: 'Fill it all — flowers bloom' } },
+      { file: 'shot-1.webp', caption: { ko: '지도', en: 'Map' } },
+    ],
+    // ★ 앱마다 다른 것
+    package: 'com.tyranno.semopath',
+    group: 'semo-path-testers',
+    groupName: 'Semo Path Testers',
+    playName: 'Semo Path - Connect Puzzle',
+    privacy: 'https://tyranno.github.io/games/semo-path/privacy.html',
+  },
 ];
 
 // 패키지 이름·그룹 아이디로 주소 만들기 (손으로 고칠 필요 없음)
