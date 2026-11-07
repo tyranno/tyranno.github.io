@@ -89,7 +89,7 @@ window.GAMES = [
     package: 'com.tyranno.semopath',
     group: 'semo-path-testers',
     groupName: 'Semo Path Testers',
-    playName: 'Semo Path - Connect Puzzle',
+    playName: '세모 길 잇기 - 동글이 길 잇기 퍼즐', // 플레이 기본 언어가 한국어라 한국어 이름
     privacy: 'https://tyranno.github.io/games/semo-path/privacy.html',
   },
 ];
